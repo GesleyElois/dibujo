@@ -92,14 +92,11 @@ public class Canvas {
         out.print("\nenter command: ");
     }
 
-    public void createNewLine(int startingX, int startingY, int endingX, int endingY) {
-        if (startingX <= 0 || startingY <= 0 || endingX <= 0 || endingY <= 0) {
-            throw new RuntimeException("Invalid parameters: the starting and ending coordinates should be greater than zero. Given parameters: " + this);
-        }
-
-        if (startingX != endingX && startingY != endingY ) {
-            throw new RuntimeException("Invalid parameters: currently only horizontal or vertical lines are supported. Given parameters: " + this);
-        }
+    public void createNewLine(Line line) {
+        int startingX = line.getStartingX();
+        int startingY = line.getStartingY();
+        int endingX = line.getEndingX();
+        int endingY = line.getEndingY();
 
         if (startingX > width ||  endingX > width || startingY > height || endingY > height) {
             throw new RuntimeException("Invalid parameters: the line coordinates should not be off limits. Given parameters: " + this + " starting(X=" + startingX + ", Y=" + startingY + ") ending(X="+endingX+ ", Y=" + endingY + ")");
@@ -112,10 +109,11 @@ public class Canvas {
         }
     }
 
-    public void createNewRectangle(int upperLeftCornerX, int upperLeftCornerY, int lowerRightCornerX, int lowerRightCornerY) {
-        if (upperLeftCornerX <= 0 || upperLeftCornerY <= 0 || lowerRightCornerX <= 0 || lowerRightCornerY <= 0) {
-            throw new RuntimeException("Invalid parameters: the upper left corner and lower right corner coordinates should be greater than zero. Given parameters: " + this);
-        }
+    public void createNewRectangle(Rectangle rectangle) {
+        int upperLeftCornerY = rectangle.getUpperLeftCornerY();
+        int upperLeftCornerX = rectangle.getUpperLeftCornerX();
+        int lowerRightCornerX = rectangle.getLowerRightCornerX();
+        int lowerRightCornerY = rectangle.getLowerRightCornerY();
 
         if (upperLeftCornerX > width || lowerRightCornerX > width || upperLeftCornerY > height || lowerRightCornerY > height) {
             throw new RuntimeException("Invalid parameters: the rectangle coordinates should not be off limits. Given parameters: " + this + " upperLeftCorner(X=" + upperLeftCornerX + ", Y=" + upperLeftCornerY + " lowerRightCorner(X=" + lowerRightCornerX + ",Y=" + lowerRightCornerY + ")");

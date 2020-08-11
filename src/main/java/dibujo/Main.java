@@ -16,13 +16,12 @@ public class Main {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 try {
-
                     if (line.startsWith("C")) {
                         createNewCanvas(line);
                     } else if (line.startsWith("L")) {
                         drawNewLine(line);
                     } else if (line.startsWith("R")) {
-                        DrawNewRectangle(line);
+                        drawNewRectangle(line);
                     } else if (line.startsWith("B")) {
                         bucketFill(line);
                     } else if (line.startsWith("Q")) {
@@ -64,7 +63,7 @@ public class Main {
         }
     }
 
-    private void DrawNewRectangle(String line) {
+    private void drawNewRectangle(String line) {
         if (canvas == null) {
             throw new RuntimeException("No canvas. You should create a canvas before creating a new rectangle.");
         }
@@ -76,7 +75,7 @@ public class Main {
             int lowerRightCornerX = Integer.parseInt(matcher.group(3));
             int lowerRightCornerY = Integer.parseInt(matcher.group(4));
 
-            canvas.createNewRectangle(upperLeftCornerX, upperLeftCornerY, lowerRightCornerX, lowerRightCornerY);
+            canvas.createNewRectangle(new Rectangle(upperLeftCornerX, upperLeftCornerY, lowerRightCornerX, lowerRightCornerY));
         } else {
             throw new RuntimeException("Invalid parameters for the create new rectangle command. Should be: L <upper left corner x> <upper left corner y> <lower right corner x> <lower right corner y>");
         }
@@ -93,7 +92,7 @@ public class Main {
             int endingX = Integer.parseInt(matcher.group(3));
             int endingY = Integer.parseInt(matcher.group(4));
 
-            canvas.createNewLine(startingX, startingY, endingX, endingY);
+            canvas.createNewLine(new Line(startingX, startingY, endingX, endingY));
         } else {
             throw new RuntimeException("Invalid parameters for the create new line command. Should be: L <starting x> <starting y> <ending x> <ending y>");
         }
