@@ -134,12 +134,14 @@ public class Canvas {
         }
     }
 
-    public void fill(Position positionToFill, String fillColor) {
-        fill(positionToFill, fillColor, new HashSet<>());
+    public void fill(BucketFill bucketFill) {
+        fill(bucketFill.getPositionFill(), bucketFill.getFillColor(), new HashSet<>());
     }
 
     private void fill(Position positionToFill, String fillColor, Set<Position> visited) {
-        if (visited.contains(positionToFill) || positionToFill.getX() <= 0 || positionToFill.getX() > this.width || positionToFill.getY() <= 0 || positionToFill.getY() > this.height) {
+        if (visited.contains(positionToFill) || positionToFill.getX() <= 0
+                || positionToFill.getX() > this.width || positionToFill.getY() <= 0
+                || positionToFill.getY() > this.height) {
             return;
         }
 

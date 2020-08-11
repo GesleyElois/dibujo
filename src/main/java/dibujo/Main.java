@@ -6,6 +6,8 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static dibujo.Options.CANVAS;
+
 public class Main {
 
     private Canvas canvas;
@@ -57,7 +59,7 @@ public class Main {
             String colorCharacter = matcher.group(3);
 
             Position startingPositionToFill = new Position(startingX, startingY);
-            canvas.fill(startingPositionToFill, colorCharacter);
+            canvas.fill(new BucketFill(startingPositionToFill, colorCharacter));
         } else {
             throw new RuntimeException("Invalid parameters for the bucket fill command. Should be: B <starting x> <starting y> <color>");
         }
