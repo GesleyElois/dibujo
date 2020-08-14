@@ -17,23 +17,12 @@ public class Main {
             out.print("\nenter command: ");
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
+
+                Options command = Options.getCommand(line);
+                canvas = command.draw(line, this.canvas);
+
                 try {
-                    if (line.startsWith("C")) {
-                        createNewCanvas(line);
-                    } else if (line.startsWith("L")) {
-                        drawNewLine(line);
-                    } else if (line.startsWith("R")) {
-                        drawNewRectangle(line);
-                    } else if (line.startsWith("B")) {
-                        bucketFill(line);
-                    } else if (line.startsWith("Q")) {
-                        exit(out);
-                    } else {
-                        err.println("Invalid command: " + line + "\n");
-                    }
-
                     canvas.draw(out);
-
                 } catch (Exception ex) {
                     err.println(ex.getMessage()+"\n");
                     out.print("\nenter command: ");

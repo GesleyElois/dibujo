@@ -165,4 +165,9 @@ public class Canvas {
         fill(positionToFill.left(), fillColor, visited);
     }
 
+    public void quit() {
+        System.out.println("Bye Bye!");
+        System.exit(0);
+    }
+
 }
