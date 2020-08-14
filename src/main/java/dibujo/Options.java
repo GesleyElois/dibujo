@@ -7,7 +7,7 @@ import java.util.stream.Stream;
 public enum Options {
 
     CANVAS("C") {
-         private Matcher isValid(String line) {
+         private Matcher match(String line) {
             Matcher matcher = Pattern.compile("^C (\\d+) (\\d+)$").matcher(line);
 
             if(!matcher.find()) {
@@ -18,7 +18,7 @@ public enum Options {
         }
 
         public Canvas draw(String line, Canvas canvas) {
-            Matcher matcher = isValid(line);
+            Matcher matcher = match(line);
 
             int width = Integer.parseInt(matcher.group(1));
             int height = Integer.parseInt(matcher.group(2));
@@ -27,7 +27,7 @@ public enum Options {
         }
     },
     LINE("L") {
-        private Matcher isValid(String line) {
+        private Matcher match(String line) {
             Matcher matcher = Pattern.compile("^L (\\d+) (\\d+) (\\d+) (\\d+)$").matcher(line);
 
             if(!matcher.find()) {
@@ -38,7 +38,11 @@ public enum Options {
         }
 
         public Canvas draw(String line, Canvas canvas) {
-            Matcher matcher = isValid(line);
+            if (canvas == null) {
+                throw new RuntimeException("No canvas. You should create a canvas before creating a new line.");
+            }
+
+            Matcher matcher = match(line);
 
             int startingX = Integer.parseInt(matcher.group(1));
             int startingY = Integer.parseInt(matcher.group(2));
@@ -51,7 +55,7 @@ public enum Options {
         }
     },
     RECTANGLE("R") {
-        private Matcher isValid(String line) {
+        private Matcher match(String line) {
             Matcher matcher = Pattern.compile("^R (\\d+) (\\d+) (\\d+) (\\d+)$").matcher(line);
 
             if(!matcher.find()) {
@@ -62,8 +66,11 @@ public enum Options {
         }
 
         public Canvas draw(String line, Canvas canvas) {
-            Matcher matcher = isValid(line);
+            if (canvas == null) {
+                throw new RuntimeException("No canvas. You should create a canvas before creating a new rectangle.");
+            }
 
+            Matcher matcher = match(line);
 
             int upperLeftCornerX = Integer.parseInt(matcher.group(1));
             int upperLeftCornerY = Integer.parseInt(matcher.group(2));
@@ -76,7 +83,7 @@ public enum Options {
         }
     },
     BUCKET_FILL("B") {
-        private Matcher isValid(String line) {
+        private Matcher match(String line) {
             Matcher matcher = Pattern.compile("^B (\\d+) (\\d+) (\\w+)$").matcher(line);
 
             if(!matcher.find()){
@@ -87,7 +94,11 @@ public enum Options {
         }
 
         public Canvas draw(String line, Canvas canvas) {
-            Matcher matcher = isValid(line);
+            if (canvas == null) {
+                throw new RuntimeException("No canvas. You should create a canvas before filling it.");
+            }
+
+            Matcher matcher = match(line);
 
             int startingX = Integer.parseInt(matcher.group(1));
             int startingY = Integer.parseInt(matcher.group(2));
@@ -102,7 +113,8 @@ public enum Options {
     },
     EXIT("Q") {
         public Canvas draw(String line, Canvas canvas) {
-            canvas.quit();
+            System.out.println("Bye Bye!");
+            System.exit(0);
             return canvas;
         }
     };
